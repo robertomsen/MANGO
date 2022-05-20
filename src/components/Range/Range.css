@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#bar {
+    width: 50%;
+    height: 10px;
+    background: black;
+    margin: 0 10px 0 10px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.values {
+    position: absolute;
+}
+
+.values .right-value {
+    right: 0;
+}
+
+.values .left-value {
+    left: 0;
+}
