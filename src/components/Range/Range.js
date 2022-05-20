@@ -4,21 +4,44 @@ import Bullet from '../Bullet/Bullet'
 import './Range.css'
 
 const Range = ({ minValue, maxValue, steps }) => {
-  const [firstBulletValue, setFirstBulletValue] = useState(minValue)
-  const [lastBulletValue, setLastBulletValue] = useState(maxValue)
+  const [firstBulletValue, setFirstBulletValue] = useState(() => minValue)
+  const [lastBulletValue, setLastBulletValue] = useState(() => maxValue)
+  const [firstBulletPosition, setFirstBulletPosition] = useState(() => 0)
+  const [lastBulletPosition, setLastBulletPosition] = useState(() => 100)
 
   const onChangeValueBullet = (value, secondBullet) => {
     secondBullet ? setLastBulletValue(value) : setFirstBulletValue(value)
   }
 
+  const onChangePercentagePositionBullet = (value, secondBullet) => {
+    secondBullet ? setLastBulletPosition(value) : setFirstBulletPosition(value)
+  }
+
   return (
     <div className='container'>
-      <p className='values left-value'>{firstBulletValue}</p>
+      <div className='values left-value'><span>{firstBulletValue.toFixed(2)}€</span></div>
       <div id='bar'>
-        <Bullet id='bullet1' onChangeValueBullet={onChangeValueBullet} maxValue={maxValue} />
-        <Bullet id='bullet2' onChangeValueBullet={onChangeValueBullet} maxValue={maxValue} secondBullet={true}/>
+        <Bullet
+          id='bullet1'
+          onChangeValueBullet={onChangeValueBullet}
+          onChangePercentagePositionBullet={onChangePercentagePositionBullet}
+          minValue={minValue}
+          maxValue={maxValue}
+          valueAnotherBullet={lastBulletValue}
+          positionAnotherBullet={lastBulletPosition}
+        />
+        <Bullet
+          id='bullet2'
+          onChangeValueBullet={onChangeValueBullet}
+          onChangePercentagePositionBullet={onChangePercentagePositionBullet}
+          minValue={minValue}
+          maxValue={maxValue}
+          secondBullet={true}
+          valueAnotherBullet={firstBulletValue}
+          positionAnotherBullet={firstBulletPosition}
+        />
       </div>
-      <p className='values right-value'>{lastBulletValue}</p>
+      <div className='values right-value'><span>{lastBulletValue.toFixed(2)}€</span></div>
     </div>
   )
 }
