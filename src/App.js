@@ -5,6 +5,8 @@ import Exercise2Page from './pages/Exercise2Page/Exercise2Page'
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
+import './App.css'
+
 const App = () => {
   return (
       <Routes>

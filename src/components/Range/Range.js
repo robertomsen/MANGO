@@ -3,7 +3,7 @@ import Bullet from '../Bullet/Bullet'
 
 import './Range.css'
 
-const Range = ({ minValue, maxValue, steps }) => {
+const Range = ({ minValue, maxValue, steps = null }) => {
   const [firstBulletValue, setFirstBulletValue] = useState(() => minValue)
   const [lastBulletValue, setLastBulletValue] = useState(() => maxValue)
   const [firstBulletPosition, setFirstBulletPosition] = useState(() => 0)
@@ -29,6 +29,7 @@ const Range = ({ minValue, maxValue, steps }) => {
           maxValue={maxValue}
           valueAnotherBullet={lastBulletValue}
           positionAnotherBullet={lastBulletPosition}
+          steps={steps}
         />
         <Bullet
           id='bullet2'
@@ -39,6 +40,7 @@ const Range = ({ minValue, maxValue, steps }) => {
           secondBullet={true}
           valueAnotherBullet={firstBulletValue}
           positionAnotherBullet={firstBulletPosition}
+          steps={steps}
         />
       </div>
       <div className='values right-value'><span>{lastBulletValue.toFixed(2)}€</span></div>

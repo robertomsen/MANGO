@@ -1,0 +1,7 @@
+#text-introduction {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

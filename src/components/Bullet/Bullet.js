@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import './Bullet.css'
 
-const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentagePositionBullet, secondBullet, positionAnotherBullet }) => {
+const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentagePositionBullet, secondBullet, positionAnotherBullet, steps = null }) => {
   useEffect(() => {
     const bar = document.getElementById('bar')
     const bullet = bar.querySelector(`#${id}`)
@@ -53,12 +53,17 @@ const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentag
       }
     }
 
-    bullet.style.left = `${newLeft}px`
     const percentageScaleOne = percentage * 1 / 100
-
     const result = ((maxValue - minValue) * percentageScaleOne) + minValue
     onChangeValueBullet(result, secondBullet)
     onChangePercentagePositionBullet(percentage, secondBullet)
+
+    if (steps) {
+      const newPosition = calcNearestRange(steps, result, maxValue, maxRight)
+      newLeft = newPosition
+    }
+
+    bullet.style.left = `${newLeft}px`
   }
 
   const onMouseDownBuller = (e) => {
@@ -73,6 +78,25 @@ const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentag
 
   const calcPercentage = (valToGetPercentage, valMax) => {
     return (valToGetPercentage * 100) / valMax
+  }
+
+  const calcNearestRange = (steps, actualValue, maxValue, maxRight) => {
+    let newValue = 0
+    let diferencia = 99999
+    for (let i = 0; i <= steps.fixedValues.length; i++) {
+      if (steps.fixedValues[i] === actualValue) {
+        return steps.fixedValues[i]
+      } else {
+        if (Math.abs(steps.fixedValues[i] - actualValue) < diferencia) {
+          newValue = steps.fixedValues[i]
+          diferencia = Math.abs(steps.fixedValues[i] - actualValue)
+        }
+      }
+    }
+    const percentage = calcPercentage(newValue, maxValue)
+    const newPx = calcPxBulletWithPercentage(maxRight, percentage)
+    console.log(newPx)
+    return newPx
   }
 
   return (

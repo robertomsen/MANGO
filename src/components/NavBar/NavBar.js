@@ -6,7 +6,7 @@ import './Navbar.css'
 const NavBar = ({ actualPage }) => {
   return (
       <nav>
-        <img src='img/logo.png' alt='logo MANGO' />
+         <Link to='/'><img src='img/logo.png' alt='logo MANGO' /></Link>
         <div>
           <Link to='/'>
             <span className={actualPage === 'home' ? 'active' : null}>Home</span>
