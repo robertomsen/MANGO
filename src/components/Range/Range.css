@@ -40,3 +40,8 @@
     left: -100px;
     text-align: right;
 }
+
+span {
+    color: black;
+    font-weight: bold;
+}

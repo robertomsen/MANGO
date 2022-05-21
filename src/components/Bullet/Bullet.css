@@ -11,6 +11,8 @@
 .bullet:hover {
     background: grey;
     transition-duration: 0.2s;
+    width: 35px;
+    height: 35px;
 }
 
 #mark {
