@@ -54,16 +54,22 @@ const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentag
     }
 
     const percentageScaleOne = percentage * 1 / 100
-    const result = ((maxValue - minValue) * percentageScaleOne) + minValue
-    onChangeValueBullet(result, secondBullet)
-    onChangePercentagePositionBullet(percentage, secondBullet)
+
+    let currentPosition = ((maxValue - minValue) * percentageScaleOne) + minValue
 
     if (steps) {
-      const newPosition = calcNearestRange(steps, result, maxValue, maxRight)
-      newLeft = newPosition
+      currentPosition = calcNearestRange(steps, currentPosition)
+      // newLeft = newPosition
     }
 
     bullet.style.left = `${newLeft}px`
+
+    if (!steps) {
+      currentPosition = ((maxValue - minValue) * percentageScaleOne) + minValue
+    }
+
+    onChangeValueBullet(currentPosition, secondBullet)
+    onChangePercentagePositionBullet(percentage, secondBullet)
   }
 
   const onMouseDownBuller = (e) => {
@@ -80,7 +86,7 @@ const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentag
     return (valToGetPercentage * 100) / valMax
   }
 
-  const calcNearestRange = (steps, actualValue, maxValue, maxRight) => {
+  const calcNearestRange = (steps, actualValue) => {
     let newValue = 0
     let diferencia = 99999
     for (let i = 0; i <= steps.fixedValues.length; i++) {
@@ -93,10 +99,7 @@ const Bullet = ({ id, minValue, maxValue, onChangeValueBullet, onChangePercentag
         }
       }
     }
-    const percentage = calcPercentage(newValue, maxValue)
-    const newPx = calcPxBulletWithPercentage(maxRight, percentage)
-    console.log(newPx)
-    return newPx
+    return newValue
   }
 
   return (
